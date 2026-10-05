@@ -2,6 +2,8 @@
 
 A small private CAT Reading Comprehension practice app for a friend group. It includes 21 Aeon essay links, six high-difficulty questions per essay (126 total), answer review with distractor reasoning, and a shared library with individually private attempts. Six questions deliberately provide a deeper drill than the four-question passage sets commonly used in CAT papers; they are practice sets, not a claim about the exam's exact format.
 
+The library also includes ten additional Scientific American and Nautilus source links as a reading list. They are not quizzes yet: the 3,000–6,000-word requirement has not been confirmed for each source, and article-derived question generation/distribution needs to be covered by the relevant rights or permission.
+
 The interface supports light and dark themes; the preference is saved in the current browser. See [`research/CAT-VARC-2020-2025.md`](research/CAT-VARC-2020-2025.md) for the six-year VARC/RC topic and trap analysis, its sources, and licensing notes for adding further publisher articles.
 
 The quiz screen intentionally contains no article passage or paragraphs. Each quiz first identifies the exact essay and author and links to the original Aeon page. Students read there, return to the quiz, and see answers and reasoning only after submitting.

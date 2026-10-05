@@ -39,3 +39,10 @@ html[data-theme="dark"] .auth-modal input{background:#171816;border-color:#45463
 html[data-theme="dark"] .modal-close,html[data-theme="dark"] .switch-auth{color:#b2aea4}
 html[data-theme="dark"] .status-dot{background:#a3b18b}
 html[data-theme="dark"] .button-accent{color:#fff}
+.related-section{margin-top:56px;border-top:1px solid var(--line);padding-top:35px}
+.related-section .section-heading h2{margin-top:8px}
+.related-note{max-width:780px;margin:12px 0 20px;color:#79756b;font-size:12px;line-height:1.65}
+.reading-status{color:#85755d}
+.reading-note{min-height:38px;margin:12px 0 0;color:#817c71;font-size:10px;line-height:1.55}
+html[data-theme="dark"] .related-note,html[data-theme="dark"] .reading-note{color:#b2aea4}
+html[data-theme="dark"] .reading-status{color:#d6bb8a}

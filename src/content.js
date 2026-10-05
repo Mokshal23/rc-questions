@@ -354,3 +354,18 @@ function hash(value) {
 
 export const quizzes = essays.map((essay) => ({ ...essay, questions: buildQuiz(essay), difficulty: "Very hard" }));
 export const categories = [...new Set(essays.map((essay) => essay.category))];
+
+// Publisher links added as a reading list only. Keep these separate from quiz
+// source material until word length and reuse permission are confirmed.
+export const relatedReadings = [
+  { slug: "mind-of-an-octopus", title: "The Mind of an Octopus", author: "Peter Godfrey-Smith", publisher: "Scientific American", url: "https://www.scientificamerican.com/article/the-mind-of-an-octopus/", note: "13-minute publisher read; exact word count not stated." },
+  { slug: "test-for-consciousness", title: "A Test for Consciousness", author: "Christof Koch and Giulio Tononi", publisher: "Scientific American", url: "https://www.scientificamerican.com/article/a-test-for-consciousness/", note: "10-minute publisher read; exact word count not stated." },
+  { slug: "do-plants-think", title: "Do Plants Think?", author: "Gareth Cook (interview with Daniel Chamovitz)", publisher: "Scientific American", url: "https://www.scientificamerican.com/article/do-plants-think-daniel-chamovitz/", note: "Corrected link: the supplied URL resolves to a 1-minute 1893 item; this is the 2012 article matching the intended topic." },
+  { slug: "why-we-have-free-will", title: "Why We Have Free Will", author: "Eddy Nahmias", publisher: "Scientific American", url: "https://www.scientificamerican.com/article/why-we-have-free-will/", note: "8-minute publisher read; exact word count not stated." },
+  { slug: "ai-nonhuman-consciousness", title: "Could AI Have Consciousness That Isn’t Human-Like?", author: "Kristen French (interview with Peter Godfrey-Smith)", publisher: "Nautilus", url: "https://nautil.us/could-ai-have-consciousness-that-isnt-human-like-1285156", note: "Exact word count not stated." },
+  { slug: "what-makes-humans-stupid", title: "What Makes Humans Stupid", author: "David C. Krakauer", publisher: "Nautilus", url: "https://nautil.us/what-makes-humans-stupid-1282459", note: "Exact word count not stated." },
+  { slug: "who-is-claude-trying-to-kid", title: "Who Is Claude Trying to Kid?", author: "Dariusz Jemielniak", publisher: "Nautilus", url: "https://nautil.us/who-is-claude-trying-to-kid-1285411", note: "Exact word count not stated." },
+  { slug: "who-deserves-our-help", title: "How We Decide Who Deserves Our Help", author: "Jake Currie", publisher: "Nautilus", url: "https://nautil.us/how-we-decide-who-deserves-our-help-1284505", note: "Exact word count not stated." },
+  { slug: "biology-and-the-dsm", title: "The Next DSM Will Use Biology to Understand Mental Disorders", author: "Anand Kumar", publisher: "Nautilus", url: "https://nautil.us/im-part-of-the-team-writing-the-next-bible-of-psychiatry-for-the-first-time-the-dsm-will-use-biology-to-understand-mental-disorders-1284613", note: "Exact word count not stated." },
+  { slug: "dog-reason-and-logic", title: "What a Picture of a Dog Has to Do with Reason and Logic", author: "Kristen French", publisher: "Nautilus", url: "https://nautil.us/what-a-picture-of-a-dog-has-to-do-with-reason-and-logic-1282727", note: "Exact word count not stated." }
+];
