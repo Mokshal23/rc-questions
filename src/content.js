@@ -9,7 +9,9 @@ export const essays = [
     overclaim: "Because some people are non-Narrative, autobiographical continuity has no role in anyone’s self-understanding.",
     reversal: "The essay argues that everyone must construct a coherent narrative, even when they deny doing so.",
     misframe: "The disagreement is chiefly about whether autobiographies should be written chronologically, not about how people experience identity.",
-    unrelated: "A more accurate chronology would by itself establish that a person experiences life as a story."
+    unrelated: "A more accurate chronology would by itself establish that a person experiences life as a story.",
+    assumption: "Reports of non-Narrative experience can be taken seriously without first redescribing them as hidden narratives.",
+    application: "A person can recognise enduring memories and relationships while experiencing the self as changing fragments rather than a unified life plot."
   },
   {
     slug: "stoicism-mind-hack", title: "Why Stoicism is one of the best mind-hacks ever devised", author: "Lary Wallace",
@@ -21,7 +23,9 @@ export const essays = [
     overclaim: "Stoic discipline guarantees happiness by eliminating grief, anger and attachment altogether.",
     reversal: "The essay presents Stoicism as passive resignation and says its central virtue is enduring whatever happens without judgment.",
     misframe: "The chief advantage of Stoicism is its exotic ritual appeal compared with Eastern traditions.",
-    unrelated: "The historical origin of the word ‘stoa’ proves that modern Stoic practice produces tranquility."
+    unrelated: "The historical origin of the word ‘stoa’ proves that modern Stoic practice produces tranquility.",
+    assumption: "Reducing the control emotions exert over action is compatible with continuing to feel joy and grief.",
+    application: "A person facing a serious loss acknowledges grief, distinguishes what can still be chosen, and remains capable of affection and purposeful action."
   },
   {
     slug: "diverse-phenomenal-experiences", title: "The moral imperative to learn from diverse phenomenal experiences", author: "Gary Lupyan",
@@ -33,7 +37,9 @@ export const essays = [
     overclaim: "Any disagreement about perception proves that people inhabit wholly incommensurable realities.",
     reversal: "The essay treats first-person reports as too unreliable to contribute to the science of perception.",
     misframe: "The dress poll matters primarily because majority voting can determine the objectively correct colour.",
-    unrelated: "A hidden experiential difference is important only when it produces a clinical impairment."
+    unrelated: "A hidden experiential difference is important only when it produces a clinical impairment.",
+    assumption: "Carefully compared first-person reports can reveal genuine differences, even though no single report is an infallible measure.",
+    application: "Researchers ask people how they imagine a familiar object and discover a stable difference that standard vision tests had not measured."
   },
   {
     slug: "religion-resists-definition", title: "The word ‘religion’ resists definition but remains necessary", author: "Kwame Anthony Appiah",
@@ -45,7 +51,9 @@ export const essays = [
     overclaim: "Because ‘religion’ is historically constructed, every use of the word is analytically invalid.",
     reversal: "The essay claims that ancient societies already divided belief into the same bounded world religions used today.",
     misframe: "The term’s usefulness depends on finding one defining property that every ritual, deity and institution shares.",
-    unrelated: "The fact that Romans used the word religio establishes that they possessed the modern concept of religion."
+    unrelated: "The fact that Romans used the word religio establishes that they possessed the modern concept of religion.",
+    assumption: "A category can support careful comparison even when its boundaries are historically formed and imperfect.",
+    application: "A scholar compares ritual practices across societies while explaining the limits of the category used and avoiding the claim that each society shares one essence."
   },
   {
     slug: "intelligence-more-than-optimisation", title: "Why real intelligence is something more than optimisation", author: "Sasha Mudd",
@@ -57,7 +65,9 @@ export const essays = [
     overclaim: "Because human reason can question ends, optimisation is irrelevant to every form of intelligence.",
     reversal: "The essay accepts that machine optimisation is a complete definition of human rationality.",
     misframe: "The central disagreement concerns whether AI systems can calculate faster than humans, rather than what reason is for.",
-    unrelated: "The fact that an AI performs well on a benchmark proves that it can legislate its own ends."
+    unrelated: "The fact that an AI performs well on a benchmark proves that it can legislate its own ends.",
+    assumption: "Assessing the worth of an end is conceptually distinct from selecting efficient means to achieve it.",
+    application: "A system reaches a target efficiently, while a human deliberator asks whether the target itself should be pursued and revises it."
   },
   {
     slug: "creating-artificial-intelligence", title: "How close are we to creating artificial intelligence?", author: "David Deutsch",
@@ -69,7 +79,9 @@ export const essays = [
     overclaim: "Because the laws of physics permit computation, AGI is practically imminent and requires no further conceptual advance.",
     reversal: "The essay concludes that physical law rules out artificial intelligence in principle.",
     misframe: "The main obstacle is that computers have not yet accumulated enough data to reproduce human conversation.",
-    unrelated: "The failure to build Babbage’s original machine proves that its computational design was unsound."
+    unrelated: "The failure to build Babbage’s original machine proves that its computational design was unsound.",
+    assumption: "In-principle computability establishes possibility, but practical progress still depends on discovering how to produce the relevant capabilities.",
+    application: "A physical process is computable in principle, yet engineers make no progress by scaling a program that lacks a theory of the process it must emulate."
   },
   {
     slug: "erasmus-ai-text-generation", title: "Who needs AI text-generation when there’s Erasmus of Rotterdam", author: "Hannah Katznelson",
@@ -81,7 +93,9 @@ export const essays = [
     overclaim: "Because humanists used templates, contemporary language models raise no new questions about authorship or social life.",
     reversal: "The essay argues that Erasmian education opposed all repeatable methods and prized only spontaneous originality.",
     misframe: "Nosoponus’s difficulty proves that slow writing is always more authentic and should not be assisted.",
-    unrelated: "A generated letter’s politeness demonstrates that its production method has no effect on language’s political use."
+    unrelated: "A generated letter’s politeness demonstrates that its production method has no effect on language’s political use.",
+    assumption: "The ease and repeatability of producing language can affect what writers practise and how language functions between people.",
+    application: "A writing system quickly produces fluent, conventional messages, while a critic asks whether that fluency leaves room for novel expression and public judgement."
   },
   {
     slug: "odour-topography-ai", title: "Odours have a complex topography, and it’s been mapped by AI", author: "Jason Castro",
@@ -93,7 +107,9 @@ export const essays = [
     overclaim: "A successful odour map proves that every person experiences each chemical smell in exactly the same way.",
     reversal: "The essay argues that smell is too subjective to display any computable structure.",
     misframe: "The map’s main achievement is a more exhaustive inventory, with no rules that generalise beyond measured examples.",
-    unrelated: "If two odours are close in the model, they must share one single molecular property such as weight."
+    unrelated: "If two odours are close in the model, they must share one single molecular property such as weight.",
+    assumption: "A model that predicts perceptual relations for untested chemicals has captured more than a list of memorised labels.",
+    application: "A model predicts where a previously untested molecule belongs among familiar smells, then researchers use the prediction to examine what perceptual similarity tracks."
   },
   {
     slug: "rewiring-neuroplasticity", title: "What the metaphor of ‘rewiring’ gets wrong about neuroplasticity", author: "Peter Lukacs",
@@ -105,7 +121,9 @@ export const essays = [
     overclaim: "Because ‘rewiring’ is misleading, targeted practice can never alter neural connections.",
     reversal: "The essay says the brain behaves exactly like a repairable circuit board and can be restored with enough repetition.",
     misframe: "The scientific term neuroplasticity is rejected because it implies that the brain is completely fixed after childhood.",
-    unrelated: "The existence of post-stroke recovery proves that every injury can be reversed with a short daily app."
+    unrelated: "The existence of post-stroke recovery proves that every injury can be reversed with a short daily app.",
+    assumption: "Metaphors shape how people interpret biological change, so a misleading engineering image can distort expectations without making plasticity unreal.",
+    application: "A patient makes gradual gains through changing neural pathways, but those gains are uneven and cannot be described as replacing one faulty wire with a perfect new one."
   },
   {
     slug: "planning-scanning-narrating", title: "We live inside minds always planning, scanning and narrating", author: "James Carmody",
@@ -117,7 +135,9 @@ export const essays = [
     overclaim: "Because mind and body are intertwined, biological measures cannot contribute to understanding distress.",
     reversal: "The essay holds that learning the brain’s mechanisms alone reliably brings peace of mind.",
     misframe: "Mindfulness works chiefly by removing thought, planning and bodily sensation from awareness.",
-    unrelated: "The fact that several practices can reduce stress proves that they operate through one identical neural mechanism."
+    unrelated: "The fact that several practices can reduce stress proves that they operate through one identical neural mechanism.",
+    assumption: "Attending to lived thoughts and sensations can disclose patterns that measurements of isolated biological systems do not fully capture.",
+    application: "A practitioner notices a recurring cycle of threat-scanning and worry, then learns to observe it early enough to respond differently."
   },
   {
     slug: "slime-mould-memory", title: "What can slime mould teach us about biological memory?", author: "Matthew Sims",
@@ -129,7 +149,9 @@ export const essays = [
     overclaim: "Slime mould remembers autobiographical events in the same way humans do.",
     reversal: "The essay assumes that memory must be stored in a nervous system and treats Physarum as irrelevant to cognition.",
     misframe: "The organism’s ability to solve a maze proves that it consciously plans routes as a human would.",
-    unrelated: "Because Physarum is one giant cell, environmental conditions cannot play any role in its memory-like behaviour."
+    unrelated: "Because Physarum is one giant cell, environmental conditions cannot play any role in its memory-like behaviour.",
+    assumption: "A past interaction can leave a trace that continues to shape later behaviour even when that trace is partly located in the organism’s surroundings.",
+    application: "A brainless organism leaves a trace in its environment that changes how it later navigates, while a researcher distinguishes this from human autobiographical recollection."
   },
   {
     slug: "jazz-dolphins-consciousness", title: "How jazz and dolphins can help explain consciousness", author: "Tim Bayne",
@@ -141,7 +163,9 @@ export const essays = [
     overclaim: "Because ‘consciousness’ has several meanings, no empirical evidence can inform debates about it.",
     reversal: "The essay treats wakefulness as the agreed criterion that resolves whether AI systems or newborns are conscious.",
     misframe: "The problem is solely that researchers lack instruments sensitive enough to detect consciousness in nonhuman systems.",
-    unrelated: "If an assembloid transmits sensory information, it must therefore have conscious experience."
+    unrelated: "If an assembloid transmits sensory information, it must therefore have conscious experience.",
+    assumption: "Evidence cannot settle whether a system belongs to a disputed category until the relevant sense of the category is specified.",
+    application: "Researchers agree that a newborn is awake but still disagree about whether it has the kind of subjective experience their consciousness study is meant to measure."
   },
   {
     slug: "deja-vu-survival", title: "Déjà vu – a window on the past and a key to human survival", author: "Anne Cleary",
@@ -153,7 +177,9 @@ export const essays = [
     overclaim: "Because places commonly trigger déjà vu, every episode is a veridical memory of that exact location.",
     reversal: "The essay treats paranormal explanations as better supported than experimentally testable accounts.",
     misframe: "The survey finding that many people experience déjà vu establishes its mechanism without further testing.",
-    unrelated: "The Method of Loci’s usefulness proves that déjà vu is simply deliberate memorisation."
+    unrelated: "The Method of Loci’s usefulness proves that déjà vu is simply deliberate memorisation.",
+    assumption: "Patterns in reported episodes can guide hypotheses, but those hypotheses still need testing before they establish a mechanism.",
+    application: "A lab tests whether scenes that resemble a person’s spatial memories can evoke familiarity without a corresponding recollection of having seen them before."
   },
   {
     slug: "adhd-hypercuriosity", title: "How the hypercuriosity of ADHD may have helped humans thrive", author: "Anne-Laure Le Cunff",
@@ -165,7 +191,9 @@ export const essays = [
     overclaim: "ADHD is an evolutionary advantage and therefore should not be treated when it causes serious impairment.",
     reversal: "The essay says people with ADHD cannot sustain attention even when a question strongly engages them.",
     misframe: "A diagnosis captures a uniform deficit that appears with equal force across all environments and tasks.",
-    unrelated: "An evolutionary account, if plausible, would show that every individual with ADHD benefits from every symptom."
+    unrelated: "An evolutionary account, if plausible, would show that every individual with ADHD benefits from every symptom.",
+    assumption: "A trait’s effects can vary with task and environment, so an impairment-focused diagnosis need not describe every context equally well.",
+    application: "The same person struggles with rigid, sustained clerical work but shows intense focus and useful exploration when allowed to follow a novel research question."
   },
   {
     slug: "spiritual-high-breakdown", title: "What a spiritual high shares with a mental breakdown", author: "Ari Brouwer",
@@ -177,7 +205,9 @@ export const essays = [
     overclaim: "Every spiritual revelation is a form of psychosis, or every psychotic episode is a route to growth.",
     reversal: "The essay argues that only beneficial transformations involve a changed sense of reality.",
     misframe: "A person’s conviction that an experience is meaningful is sufficient to show that it is psychologically safe.",
-    unrelated: "Because two experiences share a pattern of sudden change, they must have the same diagnosis and prognosis."
+    unrelated: "Because two experiences share a pattern of sudden change, they must have the same diagnosis and prognosis.",
+    assumption: "A shared capacity or pattern can help explain two experiences without making their causes, meanings or outcomes identical.",
+    application: "Two people undergo abrupt changes in worldview, but one finds a stable, beneficial reorientation while the other experiences terror and escalating impairment."
   },
   {
     slug: "fall-of-rome-modernity", title: "How the fall of the Roman empire paved the road to modernity", author: "Walter Scheidel",
@@ -189,7 +219,9 @@ export const essays = [
     overclaim: "Rome’s fall improved conditions at once for everyone across its former territory.",
     reversal: "The essay argues that the empire’s continued unity, rather than its fragmentation, created the decisive path to modernity.",
     misframe: "Because some people became taller after the collapse, the essay treats all material and cultural decline as beneficial.",
-    unrelated: "The survival of Roman law and Latin proves that the empire itself never meaningfully fell."
+    unrelated: "The survival of Roman law and Latin proves that the empire itself never meaningfully fell.",
+    assumption: "Long-run political effects can differ from immediate human costs, and a causal claim about later development need not describe every region alike.",
+    application: "A region suffers a sharp short-term decline after an empire collapses, yet persistent competition among successor states later limits any one ruler’s ability to monopolise power."
   },
   {
     slug: "indigenous-sacred-alphabet", title: "The Indigenous faith that reveres its own alphabet as sacred", author: "Bikash K. Bhattacharya",
@@ -201,7 +233,9 @@ export const essays = [
     overclaim: "The invention of a script automatically produces a stable religion and protects a culture from outside influence.",
     reversal: "The essay presents Laipianism as an ancient faith that preceded and generated Pau Cin Hau’s script.",
     misframe: "Because the script began in dreams, its historical significance can be assessed only as a supernatural claim.",
-    unrelated: "The script’s 57 characters show that it was designed chiefly to replace Christianity."
+    unrelated: "The script’s 57 characters show that it was designed chiefly to replace Christianity.",
+    assumption: "The script’s historical and religious significance can be studied as a social fact without treating its reported supernatural origin as proven.",
+    application: "A community treats a locally created writing system as sacred and uses it to sustain a religious identity formed amid outside missionary pressure."
   },
   {
     slug: "evolution-of-bitch", title: "What the evolution of ‘bitch’ says about gender and power", author: "Karen Stollznow",
@@ -213,7 +247,9 @@ export const essays = [
     overclaim: "Because some people reclaim the word, it no longer functions as an insult for anyone.",
     reversal: "The essay treats ‘bitch’ as a recent term whose meanings have never extended beyond female dogs.",
     misframe: "A dictionary’s oldest definition alone determines what the word means in every present-day interaction.",
-    unrelated: "A word’s changing meanings show that speakers can control its effects independently of social context."
+    unrelated: "A word’s changing meanings show that speakers can control its effects independently of social context.",
+    assumption: "A word’s meanings and force are shaped partly by the social relations in which different speakers use it.",
+    application: "A term is embraced by some members of a targeted group but remains insulting when used by outsiders in a hostile setting."
   },
   {
     slug: "art-not-apps-feelings", title: "It is art not apps that helps us with our complex feelings", author: "Aparna Chivukula",
@@ -225,7 +261,9 @@ export const essays = [
     overclaim: "Art always improves mental health, while every app or therapeutic tool prevents self-understanding.",
     reversal: "The essay values art because it resolves ambiguity by identifying the one correct meaning of an image.",
     misframe: "Keats’s questions are useful chiefly because they recover the urn’s historical facts with scientific accuracy.",
-    unrelated: "Since art can prompt reflection, professional mental-health support is unnecessary."
+    unrelated: "Since art can prompt reflection, professional mental-health support is unnecessary.",
+    assumption: "Some complex feelings become more intelligible through sustained imaginative engagement rather than immediate categorisation or resolution.",
+    application: "A reader remains with an ambiguous artwork and discovers a personal question it raises without claiming to have recovered the artist’s one correct meaning."
   },
   {
     slug: "leisurely-interludes-work", title: "Why we must seize leisurely interludes from work’s confines", author: "David J. Siegel",
@@ -237,7 +275,9 @@ export const essays = [
     overclaim: "Any withdrawal from work is liberating, regardless of its circumstances or effects on others.",
     reversal: "The essay treats constant availability as a neutral expectation and withdrawal as inherently pathological.",
     misframe: "The café scene proves that phones alone caused all social isolation and that removing them would restore connection.",
-    unrelated: "Because some people disengage from work, the essay recommends abolishing work altogether."
+    unrelated: "Because some people disengage from work, the essay recommends abolishing work altogether.",
+    assumption: "A temporary pause can create space for reflection or agency, even if it does not abolish the larger structures that make work demanding.",
+    application: "A worker takes a deliberate interval away from constant availability to think and reconnect, rather than treating the pause as a productivity technique."
   },
   {
     slug: "blotter-lsd", title: "How outlaw chemists used ‘blotter’ to dose the world with LSD", author: "Erik Davis",
@@ -249,7 +289,9 @@ export const essays = [
     overclaim: "Because blotter shaped LSD culture, the paper itself caused the drug’s psychological effects.",
     reversal: "The essay treats LSD as a self-sufficient molecule whose material carriers have no historical or cultural significance.",
     misframe: "The media analogy establishes that taking LSD is equivalent to consuming electronic media.",
-    unrelated: "The existence of decorated blotter proves that all LSD users shared one countercultural interpretation."
+    unrelated: "The existence of decorated blotter proves that all LSD users shared one countercultural interpretation.",
+    assumption: "A drug’s material carrier can influence how it circulates and is understood without being the chemical cause of its pharmacological effects.",
+    application: "A carrier is treated by law as evidence and by users as a designed cultural object, even though the active molecule produces the drug’s pharmacological effects."
   }
 ];
 
@@ -288,7 +330,19 @@ const buildQuiz = (essay) => {
         { text: essay.thesis, trap: "Support mistaken for challenge", note: "This restates the position rather than testing it." },
         { text: essay.inference, trap: "Consequence mistaken for counterevidence", note: "This is compatible with the argument and therefore does not undermine it." },
         { text: essay.overclaim, trap: "Straw counterargument", note: "Rejecting an exaggerated version would leave the essay’s qualified claim intact." }
-      ], "A strong challenge targets the support or mechanism the essay actually relies on, rather than attacking an inflated version of its conclusion.", "Argument evaluation · counterevidence")
+      ], "A strong challenge targets the support or mechanism the essay actually relies on, rather than attacking an inflated version of its conclusion.", "Argument evaluation · counterevidence"),
+    make("assumption", "Which assumption is most necessary for the essay’s reasoning to work?", essay.assumption,
+      [
+        { text: essay.inference, trap: "Conclusion mistaken for premise", note: "This is a consequence of the argument, not the bridge that licenses its move from evidence to conclusion." },
+        { text: essay.overclaim, trap: "Stronger than necessary", note: "The essay does not need this broader claim for its more limited reasoning to hold." },
+        { text: essay.unrelated, trap: "Irrelevant assumption", note: "This does not connect the evidence to the conclusion the author draws." }
+      ], "This is the unstated bridge the argument needs. The near-misses either restate a consequence, demand more than the argument requires, or leave its inference unsupported.", "Critical reasoning · necessary assumption"),
+    make("application", "Which new case is the strongest application of the essay’s reasoning?", essay.application,
+      [
+        { text: essay.overclaim, trap: "Scope inflation", note: "It extends the argument beyond the conditions and limits the essay supports." },
+        { text: essay.reversal, trap: "Reversal", note: "It applies the opposite relationship from the one the essay defends." },
+        { text: essay.misframe, trap: "Question shift", note: "It moves to a related issue without preserving the argument’s key distinction." }
+      ], "This case carries the essay’s underlying relation into a new setting while retaining its qualifications; the distractors inflate, reverse or redirect that relation.", "Inference · application to a new case")
   ];
 };
 

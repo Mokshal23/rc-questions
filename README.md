@@ -1,6 +1,6 @@
 # Margin — CAT Reading Room
 
-A small private CAT Reading Comprehension practice app for a friend group. It includes 21 Aeon essay links, four high-difficulty questions per essay, answer review with distractor reasoning, and a shared library with individually private attempts.
+A small private CAT Reading Comprehension practice app for a friend group. It includes 21 Aeon essay links, six high-difficulty questions per essay (126 total), answer review with distractor reasoning, and a shared library with individually private attempts. Six questions deliberately provide a deeper drill than the four-question passage sets commonly used in CAT papers; they are practice sets, not a claim about the exam's exact format.
 
 The quiz screen intentionally contains no article passage or paragraphs. Each quiz first identifies the exact essay and author and links to the original Aeon page. Students read there, return to the quiz, and see answers and reasoning only after submitting.
 
@@ -26,6 +26,8 @@ Import the GitHub repository into Vercel, choose the Vite preset, and set the sa
 
 ## Question design
 
-Each set covers central claim and scope, supported inference, the function and limits of evidence, and counterevidence. Distractors target common CAT errors: scope inflation, reversal, premise substitution, non sequitur, anecdote-to-law, and attacking a straw version of the argument. The source essay, byline and “read first” link remain visible before the attempt; explanations and trap notes appear only after submission.
+Each set asks about the central claim and its scope, a supported inference, how evidence functions, counterevidence, a necessary assumption, and application to a new case. I reviewed an archived CAT 2024 Slot 1 VARC paper and its worked solutions while designing the options: its RC items reward linking claims across the passage and distinguish close alternatives through changes in causal direction, scope, time frame, attribution, and the exact question asked. The distractors in this bank use those same failure modes, along with partial-truth, over-inference, and true-but-irrelevant choices. See the [CAT 2024 Slot 1 question paper and solutions](https://catking.in/file/media_library/10314/6a16cda0d99ba.pdf).
+
+The source essay, byline and “read first” link remain visible before the attempt. The quiz itself has no passage text. Correct answers, explanations and trap notes appear only after submission.
 
 The questions are original practice items derived from the authorised essays, not official CAT questions. Please review the items against your licensed source copies before treating them as a final answer key.
