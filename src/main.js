@@ -9,6 +9,15 @@ const root = document.querySelector("#app");
 const state = { user: null, groupId: null, view: "library", category: "All essays", query: "", currentQuiz: null, questionIndex: 0, answers: {}, startedAt: null, authMode: "sign-in", busy: false };
 const localKey = "margin-cat-preview-attempts";
 const inviteKey = "margin-pending-invite";
+const themeKey = "margin-theme";
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem(themeKey, theme);
+}
+
+const savedTheme = localStorage.getItem(themeKey);
+applyTheme(savedTheme || (window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
 
 function escapeHtml(value = "") {
   return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
@@ -31,7 +40,8 @@ function statusPill() {
 }
 
 function header() {
-  return `<header class="topbar"><a class="brand" href="#" data-action="home" aria-label="Margin home"><span class="brand-mark">m</span><span>margin<span class="brand-dot">.</span></span></a><nav class="topnav"><button class="nav-link ${state.view === "library" ? "active" : ""}" data-action="home">Library <span class="nav-count">21</span></button><button class="nav-link ${state.view === "history" ? "active" : ""}" data-action="history">My attempts</button></nav><div class="account">${statusPill()}${supabase && state.user ? `<button class="icon-button" data-action="sign-out" aria-label="Sign out" title="Sign out">↗</button>` : ""}</div></header>`;
+  const dark = document.documentElement.dataset.theme === "dark";
+  return `<header class="topbar"><a class="brand" href="#" data-action="home" aria-label="Margin home"><span class="brand-mark">m</span><span>margin<span class="brand-dot">.</span></span></a><nav class="topnav"><button class="nav-link ${state.view === "library" ? "active" : ""}" data-action="home">Library <span class="nav-count">21</span></button><button class="nav-link ${state.view === "history" ? "active" : ""}" data-action="history">My attempts</button></nav><div class="account"><button class="theme-toggle" data-action="toggle-theme" aria-label="Switch to ${dark ? "light" : "dark"} theme" title="Switch to ${dark ? "light" : "dark"} theme">${dark ? "☼" : "☾"}</button>${statusPill()}${supabase && state.user ? `<button class="icon-button" data-action="sign-out" aria-label="Sign out" title="Sign out">↗</button>` : ""}</div></header>`;
 }
 
 function visibleQuizzes() {
@@ -158,6 +168,7 @@ root.addEventListener("click", async (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   if (!action) return;
   if (action === "home") { state.view = "library"; state.currentQuiz = null; render(); window.scrollTo(0, 0); }
+  if (action === "toggle-theme") { applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark"); render(); }
   if (action === "history") { state.view = "history"; render(); window.scrollTo(0, 0); }
   if (action === "auth") { state.authMode = "sign-in"; render(); }
   if (action === "close-auth") render();
