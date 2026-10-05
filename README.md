@@ -22,7 +22,7 @@ The quiz screen intentionally contains no article passage or paragraphs. Each qu
 4. Run `npm run dev` again. Each friend creates an account and joins with the group invite code. Supabase row-level security restricts attempt reads to the account that created them.
 5. In Supabase Auth, set the site's production URL and Vercel callback URL. For a private study group, keep email confirmation enabled and use the invite code only with your members.
 
-Only the Supabase URL and publishable/anon key belong in the client. Never put a Supabase service-role key in this app or in Vercel's `VITE_` variables.
+Only the Supabase URL and publishable/anon key belong in the client. Never put a Supabase service-role/secret key in this app or in any `VITE_` or `NEXT_PUBLIC_` variable. The app accepts the `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` names from `.env.local`, and the `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` names automatically synced by Vercel's Supabase Marketplace integration.
 
 ## Deploy to Vercel
 
