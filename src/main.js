@@ -78,7 +78,7 @@ function categoryGlyph(category) {
 }
 
 function quizIntro(quiz) {
-  return `<main class="quiz-shell"><button class="back-link" data-action="home">← Back to library</button><div class="quiz-heading"><div class="eyebrow">CAT RC · VERY HARD</div><h1>${escapeHtml(quiz.title)}</h1><p class="quiz-byline">${escapeHtml(quiz.author)} <span>·</span> Aeon Essay</p><div class="read-first"><div class="read-icon">↗</div><div><span class="eyebrow">READ THIS ARTICLE FIRST</span><p>Open the original essay, then return here when you’re ready. The quiz contains questions only—no passage text.</p></div><a class="button button-dark" href="${quiz.url}" target="_blank" rel="noreferrer">Read on Aeon <span>↗</span></a></div><div class="quiz-instructions"><span>06 QUESTIONS</span><span>·</span><span>NO TIMER</span><span>·</span><span>YOUR RESULT IS PRIVATE</span></div><button class="button button-accent start-button" data-action="begin" data-quiz="${quiz.slug}">I’ve read the essay <span>→</span></button></div></main>`;
+  return `<main class="quiz-shell"><button class="back-link" data-action="home">← Back to library</button><div class="quiz-heading"><div class="eyebrow">CAT RC · VERY HARD</div><h1>${escapeHtml(quiz.title)}</h1><p class="quiz-byline">${escapeHtml(quiz.author)} <span>·</span> Aeon Essay</p><div class="read-first"><div class="read-icon">↗</div><div><span class="eyebrow">READ THIS ARTICLE FIRST</span><p>Open the original essay, then return here when you’re ready. The quiz contains questions only—no passage text.</p></div><a class="button button-dark" href="${quiz.url}" target="_blank" rel="noreferrer">Read on Aeon <span>↗</span></a></div><div class="quiz-instructions"><span>06 QUESTIONS</span><span>·</span><span>NO TIMER</span><span>·</span><span>YOUR RESULT IS PRIVATE</span></div><button class="button button-accent start-button" data-action="begin">I’ve read the essay <span>→</span></button></div></main>`;
 }
 
 function activeQuizView() {
@@ -165,7 +165,7 @@ root.addEventListener("click", async (event) => {
   const category = event.target.closest("[data-category]");
   if (category) { state.category = category.dataset.category; render(); return; }
   const quizButton = event.target.closest("[data-quiz]");
-  if (quizButton && quizButton.dataset.quiz) { beginQuiz(quizButton.dataset.quiz); return; }
+  if (quizButton && quizButton.dataset.quiz && !quizButton.dataset.action) { beginQuiz(quizButton.dataset.quiz); return; }
   const optionButton = event.target.closest("[data-option]");
   if (optionButton) {
     const question = state.currentQuiz.questions[state.questionIndex];
