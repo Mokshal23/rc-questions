@@ -296,55 +296,132 @@ export const essays = [
 ];
 
 const buildQuiz = (essay) => {
-  const make = (id, prompt, correct, wrong, explanation, skill) => ({
-    id: `${essay.slug}-${id}`,
-    prompt,
-    skill,
-    options: [
-      { text: correct, correct: true, note: explanation },
-      ...wrong.map(({ text, trap, note }) => ({ text, correct: false, trap, note }))
-    ].sort((a, b) => hash(`${essay.slug}:${id}:${a.text}`) - hash(`${essay.slug}:${id}:${b.text}`))
-  });
-
-  return [
-    make("thesis", "Which option best captures the essay’s central argument, including its scope?", essay.thesis,
-      [
-        { text: essay.overclaim, trap: "Scope inflation", note: "It turns a qualified argument into a universal claim." },
-        { text: essay.reversal, trap: "Reversal", note: "It reverses the position the essay develops." },
-        { text: essay.misframe, trap: "Premise substitution", note: "It shifts the issue to a related but different question." }
-      ], "The correct option preserves both the essay’s claim and its limits; the distractors each distort a different part of that structure.", "Central claim · scope control"),
-    make("inference", "Which inference is best supported by the essay’s reasoning?", essay.inference,
-      [
-        { text: essay.overclaim, trap: "Overgeneralisation", note: "The essay does not warrant this stronger conclusion." },
-        { text: essay.unrelated, trap: "Non sequitur", note: "This conclusion does not follow from the cited reasoning." },
-        { text: essay.misframe, trap: "Category shift", note: "It substitutes a different explanatory question for the one at issue." }
-      ], "This follows from the relationship the essay establishes without extending that relationship beyond its evidence.", "Inference · logical entailment"),
-    make("evidence", "What is the most defensible account of how the essay’s examples function?", essay.evidenceRole,
-      [
-        { text: "They establish the essay’s conclusion as a universal law, so counterexamples can be set aside.", trap: "Anecdote-to-law", note: "Examples can illuminate a claim without proving it universally." },
-        { text: "They are decorative illustrations whose details do not contribute to the argument’s reasoning.", trap: "Evidence dismissal", note: "The essay uses its cases to motivate or qualify a substantive inference." },
-        { text: "They show that every competing interpretation is false, rather than clarifying the limits of the author’s own claim.", trap: "False exhaustiveness", note: "The examples do not eliminate all alternative explanations." }
-      ], "The examples do argumentative work, but their force is limited to the role described; they are neither universal proof nor mere ornament.", "Evidence function · critical reasoning"),
-    make("challenge", "Which finding would most directly put pressure on the essay’s argument?", essay.challenge,
-      [
-        { text: essay.thesis, trap: "Support mistaken for challenge", note: "This restates the position rather than testing it." },
-        { text: essay.inference, trap: "Consequence mistaken for counterevidence", note: "This is compatible with the argument and therefore does not undermine it." },
-        { text: essay.overclaim, trap: "Straw counterargument", note: "Rejecting an exaggerated version would leave the essay’s qualified claim intact." }
-      ], "A strong challenge targets the support or mechanism the essay actually relies on, rather than attacking an inflated version of its conclusion.", "Argument evaluation · counterevidence"),
-    make("assumption", "Which assumption is most necessary for the essay’s reasoning to work?", essay.assumption,
-      [
-        { text: essay.inference, trap: "Conclusion mistaken for premise", note: "This is a consequence of the argument, not the bridge that licenses its move from evidence to conclusion." },
-        { text: essay.overclaim, trap: "Stronger than necessary", note: "The essay does not need this broader claim for its more limited reasoning to hold." },
-        { text: essay.unrelated, trap: "Irrelevant assumption", note: "This does not connect the evidence to the conclusion the author draws." }
-      ], "This is the unstated bridge the argument needs. The near-misses either restate a consequence, demand more than the argument requires, or leave its inference unsupported.", "Critical reasoning · necessary assumption"),
-    make("application", "Which new case is the strongest application of the essay’s reasoning?", essay.application,
-      [
-        { text: essay.overclaim, trap: "Scope inflation", note: "It extends the argument beyond the conditions and limits the essay supports." },
-        { text: essay.reversal, trap: "Reversal", note: "It applies the opposite relationship from the one the essay defends." },
-        { text: essay.misframe, trap: "Question shift", note: "It moves to a related issue without preserving the argument’s key distinction." }
-      ], "This case carries the essay’s underlying relation into a new setting while retaining its qualifications; the distractors inflate, reverse or redirect that relation.", "Inference · application to a new case")
+  const claim = (text, trap, note) => ({ text, trap, note });
+  const wrap = (lead, text) => `${lead}: ${text}`;
+  const questions = [
+    {
+      id: "thesis",
+      prompts: [
+        "Which formulation preserves the essay’s governing claim without enlarging or narrowing its scope?",
+        "A reader asks what the essay ultimately commits itself to. Which option best preserves the claim and its limits?",
+        "Which statement best captures the argument’s organising position, rather than one of its implications or examples?"
+      ],
+      correct: wrap("The essay’s argument is", essay.thesis),
+      wrong: [
+        claim(wrap("The essay’s argument is", essay.inference), "Implication mistaken for thesis", "This is a defensible implication, but it is narrower than the claim organising the essay."),
+        claim(wrap("The essay’s argument is", essay.evidenceRole), "Evidence role mistaken for thesis", "This describes what the evidence does; it does not state the argument that the evidence is meant to support."),
+        claim(wrap("The essay’s argument is", essay.application), "Illustration mistaken for thesis", "This is a particular application, not a formulation of the essay’s full claim and scope.")
+      ],
+      explanation: "The key is the essay’s overall commitment and its qualification. The other choices capture a consequence, the function of evidence, or a particular case.",
+      skill: "Central claim · scope and qualification"
+    },
+    {
+      id: "inference",
+      prompts: [
+        "Which further conclusion is licensed by the essay’s reasoning without adding a new premise?",
+        "If the essay’s central distinction is accepted, what follows beyond the claim it states explicitly?",
+        "Which conclusion best extends the argument while preserving the limits of its evidence?"
+      ],
+      correct: wrap("The conclusion is", essay.inference),
+      wrong: [
+        claim(wrap("The conclusion is", essay.assumption), "Premise mistaken for inference", "This is a condition the reasoning relies on, not a conclusion it derives."),
+        claim(wrap("The conclusion is", essay.application), "Example mistaken for inference", "A particular instance can illustrate the argument without expressing the broader conclusion that follows from it."),
+        claim(wrap("The conclusion is", essay.evidenceRole), "Evidence function mistaken for inference", "This identifies the role of the examples rather than the further conclusion a reader may draw.")
+      ],
+      explanation: "A supported inference extends the stated reasoning but does not merely restate a premise, evidence function or illustrative case.",
+      skill: "Inference · entailment and scope"
+    },
+    {
+      id: "evidence",
+      prompts: [
+        "What is the strongest account of the argumentative work done by the essay’s examples?",
+        "The examples are not self-interpreting. Which account best describes how they support the essay’s reasoning?",
+        "Which reading best distinguishes the evidentiary role of the cases from what they do not establish?"
+      ],
+      correct: wrap("The examples show", essay.evidenceRole),
+      wrong: [
+        claim(wrap("The examples show", essay.thesis), "Conclusion mistaken for evidence role", "This states the position the examples support; it does not explain what argumentative work the examples themselves perform."),
+        claim(wrap("The examples show", essay.inference), "Inference mistaken for evidence role", "This is a conclusion the reasoning may license, not an account of how the evidence functions."),
+        claim(wrap("The examples show", essay.application), "Example mistaken for evidence role", "This gives a case that illustrates the subject; it does not identify how the essay uses its evidence.")
+      ],
+      explanation: "The best reading identifies the specific inferential role of the examples without treating them as universal proof, certainty, or decoration.",
+      skill: "Evidence function · inference from examples"
+    },
+    {
+      id: "challenge",
+      prompts: [
+        "Which new finding would most directly require the author to revise the argument as actually stated?",
+        "A critic wants to test the essay’s central warrant, not a stronger claim it never makes. Which result is most damaging?",
+        "Which counterevidence would put pressure on the reasoning itself rather than merely add an exception or another example?"
+      ],
+      correct: essay.challenge,
+      wrong: [
+        claim("A study refutes only an unqualified universal reading, while leaving the essay’s stated conditions and qualified conclusion intact; the narrower argument remains untouched.", "Straw-man counterexample", "This targets a broader position than the essay takes; rejecting that version leaves its qualified argument intact."),
+        claim("A replication reproduces the pattern but does not distinguish the author’s explanation from another account of the same observations; the central explanatory claim remains unresolved.", "Compatible case mistaken for counterevidence", "This may motivate further testing, but it does not by itself contradict the essay’s central warrant."),
+        claim("One cited illustration proves atypical, though the broader argument does not rely on it being representative; its failure therefore leaves the conclusion intact.", "Single case mistaken for decisive counterevidence", "An unusual illustration matters only if the argument depends on that instance being typical.")
+      ],
+      explanation: "The strongest challenge targets the particular support or hinge on which this essay relies, not a straw version of its claim or a merely compatible example.",
+      skill: "Critical reasoning · counterevidence"
+    },
+    {
+      id: "assumption",
+      prompts: [
+        "Which unstated proposition is needed for the essay’s move from its evidence to its conclusion to hold?",
+        "Which premise supplies the bridge between the cases the essay discusses and the conclusion it draws?",
+        "Even if the stated evidence is accepted, which background assumption is necessary to sustain the argument?"
+      ],
+      correct: wrap("A necessary assumption is", essay.assumption),
+      wrong: [
+        claim(wrap("A necessary assumption is", "The cases the author discusses are typical enough to support a conclusion beyond those exact instances."), "Representativeness overread", "Some generalisation may be warranted, but the essay need not assume its cases represent every instance of the phenomenon."),
+        claim(wrap("A necessary assumption is", "The key concepts retain the same meaning across the different cases the essay compares."), "Conceptual stability overread", "Stable terminology may help comparison, but this is not necessarily the premise that links the essay’s evidence to its conclusion."),
+        claim(wrap("A necessary assumption is", "The evidence favors the author’s account over another explanation that fits the same observations."), "Alternatives excluded too strongly", "The argument need not eliminate every rival explanation for its more limited conclusion to be supported.")
+      ],
+      explanation: "A necessary assumption is the minimal bridge the reasoning needs. It is not the conclusion restated as a premise or a stronger generalisation than the essay requires.",
+      skill: "Critical reasoning · necessary assumption"
+    },
+    {
+      id: "application",
+      prompts: [
+        "Which new case preserves the essay’s underlying relation without importing a stronger claim?",
+        "Which situation best transfers the author’s reasoning to a different context while retaining its boundary conditions?",
+        "A reader wants to apply the argument, not merely reuse its topic. Which case preserves the relevant distinction?"
+      ],
+      correct: `A new case: ${essay.application}`,
+      wrong: [
+        claim(`A new case: A person extends “${essay.title}” to a situation beyond the conditions the essay identifies.`, "Boundary condition dropped", "The case resembles the topic but removes a condition that the essay’s reasoning depends on."),
+        claim(`A new case: A person considers a similar situation but reverses the relationship described in “${essay.title}”.`, "Relation reversed", "Surface similarity does not preserve the argument when the explanatory direction has been reversed."),
+        claim(`A new case: A researcher studies the same topic as “${essay.title}” but substitutes a nearby issue for its key distinction.`, "Adjacent issue substituted", "This stays near the essay’s topic but changes the question instead of transferring its governing relation.")
+      ],
+      explanation: "A sound application preserves the essay’s key relation and its limits. The traps keep the topic but inflate, reverse or redirect the reasoning.",
+      skill: "Transfer · boundary conditions"
+    }
   ];
+
+  const positions = balancedAnswerPositions(essay.slug, questions.length);
+  return questions.map((question, index) => {
+    const correctPosition = positions[index];
+    const distractors = [...question.wrong].sort((a, b) => hash(`${essay.slug}:${question.id}:${a.text}`) - hash(`${essay.slug}:${question.id}:${b.text}`));
+    const choices = distractors.map((option) => ({ ...option, correct: false }));
+    choices.splice(correctPosition, 0, { text: question.correct, correct: true, note: question.explanation });
+    return {
+      id: `${essay.slug}-${question.id}`,
+      prompt: question.prompts[Math.abs(hash(`${essay.slug}:${question.id}:prompt`)) % question.prompts.length],
+      skill: question.skill,
+      options: choices
+    };
+  });
 };
+
+function balancedAnswerPositions(seed, count) {
+  const positions = [0, 0, 1, 1, 2, 3].slice(0, count);
+  let randomState = hash(seed) || 1;
+  for (let index = positions.length - 1; index > 0; index -= 1) {
+    randomState = (randomState * 1664525 + 1013904223) >>> 0;
+    const swapIndex = randomState % (index + 1);
+    [positions[index], positions[swapIndex]] = [positions[swapIndex], positions[index]];
+  }
+  return positions;
+}
 
 function hash(value) {
   let result = 0;
