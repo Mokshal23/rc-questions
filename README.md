@@ -17,9 +17,9 @@ The quiz screen intentionally contains no article passage or paragraphs. Each qu
 ## Enable shared accounts and private results
 
 1. Create a Supabase project.
-2. In its SQL Editor, run [`supabase/schema.sql`](supabase/schema.sql). The final query returns the group's invite code; share that code only with your friends.
+2. In its SQL Editor, run [`supabase/schema.sql`](supabase/schema.sql). The final query returns the group's invite code; share that code only with your friends. This schema permits one completed attempt per member/article. If you already installed the earlier schema, run [`supabase/migrations/20261006_one_attempt_per_article.sql`](supabase/migrations/20261006_one_attempt_per_article.sql) once instead; it preserves history and stops if duplicate attempts need review.
 3. Copy `.env.example` to `.env.local`, then set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from the Supabase project settings.
-4. Run `npm run dev` again. Each friend creates an account and joins with the group invite code. Supabase row-level security restricts attempt reads to the account that created them.
+4. Run `npm run dev` again. Each friend creates an account and joins with the group invite code. Supabase row-level security restricts attempt reads to the account that created them; completed article quizzes are then marked attempted and cannot be opened again by that member.
 5. In Supabase Auth, set the site's production URL and Vercel callback URL. For a private study group, keep email confirmation enabled and use the invite code only with your members.
 
 Only the Supabase URL and publishable/anon key belong in the client. Never put a Supabase service-role/secret key in this app or in any `VITE_` or `NEXT_PUBLIC_` variable. The app accepts the `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` names from `.env.local`, and the `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` names automatically synced by Vercel's Supabase Marketplace integration.

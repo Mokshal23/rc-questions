@@ -32,6 +32,10 @@ create table if not exists public.quiz_attempts (
 create index if not exists quiz_attempts_owner_idx
   on public.quiz_attempts (user_id, completed_at desc);
 
+-- A member may complete each article quiz only once, regardless of device.
+create unique index if not exists quiz_attempts_one_per_user_quiz_idx
+  on public.quiz_attempts (user_id, quiz_slug);
+
 create or replace function public.join_group(p_invite_code text)
 returns uuid
 language plpgsql

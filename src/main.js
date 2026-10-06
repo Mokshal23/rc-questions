@@ -6,7 +6,7 @@ const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || import.meta.env.NEXT_PU
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const supabase = supabaseUrl && supabaseKey ? createClient(supabaseUrl, supabaseKey) : null;
 const root = document.querySelector("#app");
-const state = { user: null, groupId: null, view: "library", category: "All essays", query: "", currentQuiz: null, questionIndex: 0, answers: {}, startedAt: null, authMode: "sign-in", busy: false };
+const state = { user: null, groupId: null, view: "library", category: "All essays", query: "", currentQuiz: null, questionIndex: 0, answers: {}, startedAt: null, authMode: "sign-in", busy: false, attemptedQuizSlugs: new Set(), attemptsLoaded: false, attemptsError: "", checkingQuizSlug: null };
 const localKey = "margin-cat-preview-attempts";
 const inviteKey = "margin-pending-invite";
 const themeKey = "margin-theme";
@@ -25,6 +25,30 @@ function escapeHtml(value = "") {
 
 function attemptsFromLocal() {
   try { return JSON.parse(localStorage.getItem(localKey) || "[]"); } catch { return []; }
+}
+
+async function refreshAttemptedQuizzes() {
+  const userId = state.user?.id || null;
+  state.attemptsLoaded = false;
+  state.attemptsError = "";
+  try {
+    let slugs;
+    if (!supabase) {
+      slugs = attemptsFromLocal().map((attempt) => attempt.quiz_slug);
+    } else if (!userId) {
+      slugs = [];
+    } else {
+      const { data, error } = await supabase.from("quiz_attempts").select("quiz_slug");
+      if (error) throw error;
+      slugs = (data || []).map((attempt) => attempt.quiz_slug);
+    }
+    if ((state.user?.id || null) !== userId) return;
+    state.attemptedQuizSlugs = new Set(slugs);
+    state.attemptsLoaded = true;
+  } catch (error) {
+    if ((state.user?.id || null) !== userId) return;
+    state.attemptsError = error.message || "Could not check your quiz history.";
+  }
 }
 
 async function loadAttempts() {
@@ -65,7 +89,16 @@ function homeView() {
 function quizCard(quiz, index) {
   const number = String(quizzes.indexOf(quiz) + 1).padStart(2, "0");
   const wash = ["wash-rose", "wash-blue", "wash-yellow", "wash-lilac", "wash-green"][index % 5];
-  return `<article class="quiz-card"><div class="card-top"><span class="card-number">${number} <span>/ 21</span></span><span class="difficulty">VERY HARD</span></div><a class="source-art ${wash}" href="${quiz.url}" target="_blank" rel="noreferrer" aria-label="Read ${escapeHtml(quiz.title)} on Aeon"><span class="source-open">READ ARTICLE ↗</span><span class="source-glyph">${categoryGlyph(quiz.category)}</span><span class="source-category">${escapeHtml(quiz.category)}</span></a><div class="card-body"><h3>${escapeHtml(quiz.title)}</h3><p class="byline">${escapeHtml(quiz.author)} <span>·</span> Aeon Essay</p><div class="card-detail"><span>6 questions</span><span class="card-detail-dot">·</span><span>Inference + CR</span></div><div class="card-actions"><a class="text-link" href="${quiz.url}" target="_blank" rel="noreferrer">Read article <span>↗</span></a><button class="button button-outline" data-quiz="${quiz.slug}">Take quiz <span>→</span></button></div></div></article>`;
+  const attempted = state.attemptedQuizSlugs.has(quiz.slug);
+  const checking = state.checkingQuizSlug === quiz.slug || (supabase && state.user && !state.attemptsLoaded && !state.attemptsError);
+  const action = attempted
+    ? `<span class="text-link" aria-label="Quiz already attempted">Quiz attempted ✓</span>`
+    : state.attemptsError && supabase && state.user
+      ? `<span class="text-link" title="${escapeHtml(state.attemptsError)}">Status unavailable</span>`
+      : checking
+        ? `<button class="button button-outline" disabled>Checking…</button>`
+        : `<button class="button button-outline" data-quiz="${quiz.slug}">Take quiz <span>→</span></button>`;
+  return `<article class="quiz-card"><div class="card-top"><span class="card-number">${number} <span>/ 21</span></span><span class="difficulty">VERY HARD</span></div><a class="source-art ${wash}" href="${quiz.url}" target="_blank" rel="noreferrer" aria-label="Read ${escapeHtml(quiz.title)} on Aeon"><span class="source-open">READ ARTICLE ↗</span><span class="source-glyph">${categoryGlyph(quiz.category)}</span><span class="source-category">${escapeHtml(quiz.category)}</span></a><div class="card-body"><h3>${escapeHtml(quiz.title)}</h3><p class="byline">${escapeHtml(quiz.author)} <span>·</span> Aeon Essay</p><div class="card-detail"><span>6 questions</span><span class="card-detail-dot">·</span><span>Inference + CR</span></div><div class="card-actions"><a class="text-link" href="${quiz.url}" target="_blank" rel="noreferrer">Read article <span>↗</span></a>${action}</div></div></article>`;
 }
 
 function readingCard(item, index) {
@@ -135,9 +168,34 @@ function render() {
   if (search) search.addEventListener("input", (event) => { state.query = event.target.value; const cursor = event.target.selectionStart; render(); document.querySelector("#search")?.focus(); document.querySelector("#search")?.setSelectionRange(cursor, cursor); });
 }
 
-function beginQuiz(slug) {
+async function beginQuiz(slug) {
   if (supabase && !state.user) { state.authMode = "sign-in"; render(); return; }
   if (supabase && !state.groupId) { render(); return; }
+  if (state.attemptedQuizSlugs.has(slug) || state.checkingQuizSlug) return;
+  const userId = state.user?.id || null;
+  if (supabase && userId) {
+    state.checkingQuizSlug = slug;
+    render();
+    try {
+      const { data, error } = await supabase.from("quiz_attempts").select("id").eq("quiz_slug", slug).limit(1).maybeSingle();
+      if (error) throw error;
+      if (state.user?.id !== userId) return;
+      if (data) {
+        state.attemptedQuizSlugs.add(slug);
+        state.attemptsLoaded = true;
+        window.alert("You’ve already completed this article’s quiz. Each quiz can only be taken once.");
+        return;
+      }
+    } catch (error) {
+      if (state.user?.id === userId) state.attemptsError = error.message || "Could not check your quiz history.";
+      window.alert("I couldn’t verify whether you’ve already attempted this quiz. Please refresh and try again.");
+      return;
+    } finally {
+      if (state.checkingQuizSlug === slug) state.checkingQuizSlug = null;
+      render();
+    }
+  }
+  if (state.attemptedQuizSlugs.has(slug)) return;
   state.currentQuiz = quizzes.find((quiz) => quiz.slug === slug);
   state.answers = {};
   state.questionIndex = 0;
@@ -156,9 +214,15 @@ async function saveAttempt() {
     if (error) throw error;
   } else {
     const history = attemptsFromLocal();
+    if (history.some((attempt) => attempt.quiz_slug === quiz.slug)) {
+      const error = new Error("This quiz has already been completed. Each article quiz can only be taken once.");
+      error.code = "ALREADY_ATTEMPTED";
+      throw error;
+    }
     history.unshift({ ...payload, id: crypto.randomUUID() });
     localStorage.setItem(localKey, JSON.stringify(history));
   }
+  state.attemptedQuizSlugs.add(quiz.slug);
 }
 
 root.addEventListener("click", async (event) => {
@@ -181,15 +245,28 @@ root.addEventListener("click", async (event) => {
   if (action === "auth") { state.authMode = "sign-in"; render(); }
   if (action === "close-auth") render();
   if (action === "switch-auth") { state.authMode = state.authMode === "sign-up" ? "sign-in" : "sign-up"; render(); }
-  if (action === "sign-out") { await supabase.auth.signOut(); state.user = null; render(); }
+  if (action === "sign-out") { await supabase.auth.signOut(); state.user = null; state.groupId = null; state.attemptedQuizSlugs = new Set(); state.attemptsLoaded = true; render(); }
   if (action === "begin") { state.view = "attempt"; state.startedAt = Date.now(); render(); window.scrollTo(0, 0); }
   if (action === "quit") { state.view = "intro"; render(); }
   if (action === "previous") { state.questionIndex = Math.max(0, state.questionIndex - 1); render(); }
   if (action === "next") { state.questionIndex = Math.min(state.currentQuiz.questions.length - 1, state.questionIndex + 1); render(); }
   if (action === "submit") {
+    if (state.busy) return;
     state.busy = true; render();
     try { await saveAttempt(); state.view = "results"; }
-    catch (error) { state.view = "attempt"; state.questionIndex = state.currentQuiz.questions.length - 1; window.alert(`Could not save this attempt: ${error.message}`); }
+    catch (error) {
+      if (error.code === "23505" || error.code === "ALREADY_ATTEMPTED") {
+        state.attemptedQuizSlugs.add(state.currentQuiz.slug);
+        state.view = "library";
+        state.currentQuiz = null;
+        state.answers = {};
+        window.alert("This article’s quiz has already been completed on your account. Each quiz can only be taken once.");
+      } else {
+        state.view = "attempt";
+        state.questionIndex = state.currentQuiz.questions.length - 1;
+        window.alert(`Could not save this attempt: ${error.message}`);
+      }
+    }
     finally { state.busy = false; render(); window.scrollTo(0, 0); }
   }
 });
@@ -206,6 +283,7 @@ root.addEventListener("submit", async (event) => {
       if (error) throw error;
       state.groupId = data;
       localStorage.removeItem(inviteKey);
+      await refreshAttemptedQuizzes();
       render();
     } catch (error) { errorBox.hidden = false; errorBox.textContent = error.message; }
     finally { button.disabled = false; }
@@ -241,6 +319,7 @@ root.addEventListener("submit", async (event) => {
         state.groupId = joinedGroup;
         localStorage.removeItem(inviteKey);
       }
+      await refreshAttemptedQuizzes();
       render();
     }
   } catch (error) {
@@ -262,10 +341,32 @@ if (supabase) {
         if (joinedGroup) localStorage.removeItem(inviteKey);
       }
     }
+    await refreshAttemptedQuizzes();
     render();
   });
-  supabase.auth.onAuthStateChange((_event, session) => { state.user = session?.user || null; if (!state.user) state.groupId = null; render(); });
-} else render();
+  supabase.auth.onAuthStateChange((event, session) => {
+    state.user = session?.user || null;
+    if (!state.user) {
+      state.groupId = null;
+      state.attemptedQuizSlugs = new Set();
+      state.attemptsLoaded = true;
+      state.attemptsError = "";
+    } else if (event !== "INITIAL_SESSION") {
+      state.attemptsLoaded = false;
+      const userId = state.user.id;
+      setTimeout(async () => {
+        if (state.user?.id !== userId) return;
+        await refreshAttemptedQuizzes();
+        render();
+      }, 0);
+    }
+    render();
+  });
+} else {
+  state.attemptedQuizSlugs = new Set(attemptsFromLocal().map((attempt) => attempt.quiz_slug));
+  state.attemptsLoaded = true;
+  render();
+}
 
 document.addEventListener("keydown", (event) => {
   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { event.preventDefault(); document.querySelector("#search")?.focus(); }
