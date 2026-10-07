@@ -8,6 +8,7 @@ for (const quiz of quizzes) {
   }
 
   const seenOptions = new Set();
+  const seenClaims = new Set();
   const answerCounts = [0, 0, 0, 0];
   const seenPrompts = new Set();
 
@@ -36,6 +37,12 @@ for (const quiz of quizzes) {
       if (!normalized) errors.push(`${question.id}: blank answer option`);
       if (seenOptions.has(normalized)) errors.push(`${question.id}: repeated option within this quiz`);
       seenOptions.add(normalized);
+      const claim = normalized
+        .replace(/^(the essay’s argument is|the conclusion is|the examples show|a necessary assumption is|a new case):\s*/u, "")
+        .replace(/[.!?]+$/u, "")
+        .trim();
+      if (seenClaims.has(claim)) errors.push(`${question.id}: repeated answer claim across questions (only the lead-in differs)`);
+      seenClaims.add(claim);
       if (!option.correct && (!option.trap || !option.note)) errors.push(`${question.id}: distractor is missing its trap explanation`);
     }
   }
@@ -49,5 +56,5 @@ if (errors.length) {
   console.error(errors.join("\n"));
   process.exitCode = 1;
 } else {
-  console.log(`Validated ${quizzes.length} quizzes: six questions each, unique options, balanced answer keys, and plausible option lengths.`);
+  console.log(`Validated ${quizzes.length} quizzes: six questions and 24 distinct answer claims each, balanced answer keys, and plausible option lengths.`);
 }

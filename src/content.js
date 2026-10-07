@@ -118,7 +118,7 @@ export const essays = [
     inference: "Rejecting the metaphor’s promise of mechanical precision need not deny the brain’s capacity to change or recover function.",
     evidenceRole: "The metaphor’s engineering history explains why it feels intuitive, while evidence of plasticity complicates the image of a fixed circuit board.",
     challenge: "If neural recovery could be reliably described as localised replacement of faulty circuits with predictable new ones, the essay’s contrast between engineering and biology would lose force.",
-    overclaim: "Because ‘rewiring’ is misleading, targeted practice can never alter neural connections.",
+    overclaim: "Because ‘rewiring’ is misleading, the essay rejects any possibility that targeted practice can alter neural connections.",
     reversal: "The essay says the brain behaves exactly like a repairable circuit board and can be restored with enough repetition.",
     misframe: "The scientific term neuroplasticity is rejected because it implies that the brain is completely fixed after childhood.",
     unrelated: "The existence of post-stroke recovery proves that every injury can be reversed with a short daily app.",
@@ -216,9 +216,9 @@ export const essays = [
     inference: "The essay’s long-run case for fragmentation does not imply that collapse was immediately beneficial or that every region shared the same trajectory.",
     evidenceRole: "Short-term losses and later reductions in extraction are placed on different timescales to challenge a simple ‘fall equals civilisational disaster’ narrative.",
     challenge: "If a durable successor empire had restored centralised control without suppressing the political competition the essay treats as productive, the causal link to modernity would be less convincing.",
-    overclaim: "Rome’s fall improved conditions at once for everyone across its former territory.",
+    overclaim: "Rome’s fall immediately improved living conditions for every population across its former territory without exception.",
     reversal: "The essay argues that the empire’s continued unity, rather than its fragmentation, created the decisive path to modernity.",
-    misframe: "Because some people became taller after the collapse, the essay treats all material and cultural decline as beneficial.",
+    misframe: "Because some people became taller after the collapse, the essay treats every material and cultural decline across the former empire as beneficial.",
     unrelated: "The survival of Roman law and Latin proves that the empire itself never meaningfully fell.",
     assumption: "Long-run political effects can differ from immediate human costs, and a causal claim about later development need not describe every region alike.",
     application: "A region suffers a sharp short-term decline after an empire collapses, yet persistent competition among successor states later limits any one ruler’s ability to monopolise power."
@@ -282,7 +282,7 @@ export const essays = [
   {
     slug: "blotter-lsd", title: "How outlaw chemists used ‘blotter’ to dose the world with LSD", author: "Erik Davis",
     url: "https://aeon.co/essays/how-outlaw-chemists-used-blotter-to-dose-the-world-with-lsd", category: "History & culture",
-    thesis: "Blotter paper was not a neutral container for LSD: as a carrier medium it shaped how the drug moved through law, culture and the sensory imagination of the counterculture.",
+    thesis: "Blotter paper was not a neutral carrier: it shaped LSD’s movement through law and culture, and influenced the sensory meanings attached to the drug.",
     inference: "Treating a drug only as a molecule misses how its material vehicle can become part of the experience and the meanings attached to it.",
     evidenceRole: "Media metaphors, carrier-medium language and decorated blotter designs connect the chemistry of dosing with broader ideas about communication and perception.",
     challenge: "If the paper’s form and cultural associations had no effect on distribution, legal treatment or users’ understanding, the claim that the medium mattered would be weakened.",
@@ -308,9 +308,9 @@ const buildQuiz = (essay) => {
       ],
       correct: wrap("The essay’s argument is", essay.thesis),
       wrong: [
-        claim(wrap("The essay’s argument is", essay.inference), "Implication mistaken for thesis", "This is a defensible implication, but it is narrower than the claim organising the essay."),
-        claim(wrap("The essay’s argument is", essay.evidenceRole), "Evidence role mistaken for thesis", "This describes what the evidence does; it does not state the argument that the evidence is meant to support."),
-        claim(wrap("The essay’s argument is", essay.application), "Illustration mistaken for thesis", "This is a particular application, not a formulation of the essay’s full claim and scope.")
+        claim(wrap("The essay’s argument is", essay.overclaim), "Scope inflation", "This turns the essay’s qualified position into a broader claim than its reasoning supports."),
+        claim(wrap("The essay’s argument is", essay.reversal), "Position reversed", "This attributes the opposing position to the author."),
+        claim(wrap("The essay’s argument is", essay.misframe), "Issue substituted", "This shifts the essay onto a nearby but different question.")
       ],
       explanation: "The key is the essay’s overall commitment and its qualification. The other choices capture a consequence, the function of evidence, or a particular case.",
       skill: "Central claim · scope and qualification"
@@ -324,9 +324,9 @@ const buildQuiz = (essay) => {
       ],
       correct: wrap("The conclusion is", essay.inference),
       wrong: [
-        claim(wrap("The conclusion is", essay.assumption), "Premise mistaken for inference", "This is a condition the reasoning relies on, not a conclusion it derives."),
-        claim(wrap("The conclusion is", essay.application), "Example mistaken for inference", "A particular instance can illustrate the argument without expressing the broader conclusion that follows from it."),
-        claim(wrap("The conclusion is", essay.evidenceRole), "Evidence function mistaken for inference", "This identifies the role of the examples rather than the further conclusion a reader may draw.")
+        claim(wrap("The conclusion is", `The essay additionally implies the following: ${essay.unrelated}`), "Non sequitur", "This may concern the same broad topic, but the essay’s reasoning does not establish it."),
+        claim("The conclusion is: The argument depends on every cited example representing the entire phenomenon, even where the author makes a narrower claim.", "Unnecessary universal premise", "The essay’s conclusion need not depend on every example representing every possible case."),
+        claim("The conclusion is: One counterexample to a single illustration defeats the whole argument, whatever its other evidence or stated limits.", "Exception overread", "An exception matters only if the argument depends on that case or makes a universal claim.")
       ],
       explanation: "A supported inference extends the stated reasoning but does not merely restate a premise, evidence function or illustrative case.",
       skill: "Inference · entailment and scope"
@@ -340,9 +340,9 @@ const buildQuiz = (essay) => {
       ],
       correct: wrap("The examples show", essay.evidenceRole),
       wrong: [
-        claim(wrap("The examples show", essay.thesis), "Conclusion mistaken for evidence role", "This states the position the examples support; it does not explain what argumentative work the examples themselves perform."),
-        claim(wrap("The examples show", essay.inference), "Inference mistaken for evidence role", "This is a conclusion the reasoning may license, not an account of how the evidence functions."),
-        claim(wrap("The examples show", essay.application), "Example mistaken for evidence role", "This gives a case that illustrates the subject; it does not identify how the essay uses its evidence.")
+        claim("The examples show: The cases are treated as a representative sample, supporting generalisation to settings beyond the populations and conditions the author actually discusses.", "Representativeness overreach", "The examples may support a pattern without warranting extension to unexamined populations or contexts."),
+        claim("The examples show: Their chief function is to establish the causal mechanism behind the observed pattern, rather than clarify a conceptual distinction or qualify the conclusion.", "Mechanism substituted for argumentative role", "Evidence may motivate or delimit an interpretation without establishing a causal mechanism."),
+        claim("The examples show: They make the account concrete, but the reasoning is independent of them; the same conclusion would follow unchanged from the essay’s framing alone.", "Evidence treated as dispensable illustration", "The essay relies on its cases for more than vividness; they contribute to the reasoning described in the keyed option.")
       ],
       explanation: "The best reading identifies the specific inferential role of the examples without treating them as universal proof, certainty, or decoration.",
       skill: "Evidence function · inference from examples"
